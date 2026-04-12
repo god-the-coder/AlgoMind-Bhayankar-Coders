@@ -7,13 +7,13 @@ import PlanCustomizer from '../../components/plan/PlanCustomizer.jsx';
 import TopicsModal    from '../../components/plan/TopicsModal.jsx';
 import { useAuth }    from '../../context/AuthContext.jsx';
 import api            from '../../utils/api.js';
-
+import { API_BASE_URL } from '../../config.js';
 const FALLBACK_TOPICS = ['Arrays', 'Strings', 'Trees', 'Graphs', 'Dynamic Programming'];
 
 /* Fetch public preview stats (no auth required) */
 async function fetchPreview(platform, handle) {
   try {
-    const res = await fetch(`/api/analytics/preview/${platform}/${encodeURIComponent(handle)}/`);
+    const res = await fetch(`${API_BASE_URL}/api/analytics/preview/${platform}/${encodeURIComponent(handle)}/`);
     if (!res.ok) return null;
     const data = await res.json();
     if (data.detail) return null;

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../../context/AuthContext.jsx';
 import api from '../../utils/api.js';
-
+import { API_BASE_URL } from '../../config.js';
 import Navbar      from '../../components/login/Navbar.jsx';
 import HeroSection from '../../components/login/HeroSection.jsx';
 import AnalyzeCard from '../../components/login/AnalyzeCard.jsx';
@@ -28,7 +28,7 @@ function LoginPage({ isDark, toggleTheme }) {
   /* Validate a single handle against the backend (no auth required) */
   const validateHandle = async (platform, handle) => {
     try {
-      const res = await fetch(`/api/analytics/validate/${platform}/${encodeURIComponent(handle)}/`);
+      const res = await fetch(`${API_BASE_URL}/api/analytics/validate/${platform}/${encodeURIComponent(handle)}/`);
       const data = await res.json();
       return data.valid !== false;   // treat API errors as valid (fail-open)
     } catch {

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import api from '../../utils/api.js';
-
+import { API_BASE_URL } from '../../config.js';
 /* Platform icons as inline SVG */
 const LeetCodeIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -33,7 +33,7 @@ function ConnectPlatformsPage() {
 
   const validateHandle = async (platform, handle) => {
     try {
-      const res  = await fetch(`/api/analytics/validate/${platform}/${encodeURIComponent(handle)}/`);
+      const res  = await fetch(`${API_BASE_URL}/api/analytics/validate/${platform}/${encodeURIComponent(handle)}/`);
       const data = await res.json();
       return data.valid !== false;
     } catch { return true; }

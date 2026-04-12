@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
-
+import { API_BASE_URL } from '../../config.js';
 /**
  * SignInModal
  *
@@ -133,7 +133,7 @@ function SignInModal({ isOpen, onClose, onSuccess }) {
               {/* GitHub — live OAuth redirect */}
               <button
                 id="github-oauth-btn"
-                onClick={() => { window.location.href = '/api/auth/oauth/github/'; }}
+                onClick={() => { window.location.href = `${API_BASE_URL}/api/auth/oauth/github/`; }}
                 className="w-full flex items-center justify-center gap-3 px-6 py-3 border border-gray-200 dark:border-white/10 rounded-xl hover:bg-gray-50 dark:hover:bg-white/5 transition-colors font-medium"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -145,7 +145,7 @@ function SignInModal({ isOpen, onClose, onSuccess }) {
               {/* Google — live OAuth redirect */}
               <button
                 id="google-oauth-btn"
-                onClick={() => { window.location.href = '/api/auth/oauth/google/'; }}
+                onClick={() => { window.location.href = `${API_BASE_URL}/api/auth/oauth/google/`; }}
                 className="w-full flex items-center justify-center gap-3 px-6 py-3 border border-gray-200 dark:border-white/10 rounded-xl hover:bg-gray-50 dark:hover:bg-white/5 transition-colors font-medium"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">

@@ -6,7 +6,9 @@
  *   - on unrecoverable 401 clears tokens and redirects to /
  */
 
-const BASE = '/api';
+import { API_BASE_URL } from '../config.js';
+
+const BASE = `${API_BASE_URL}/api`;
 
 // ── token helpers ────────────────────────────────────────────────
 export function getToken()        { return localStorage.getItem('access_token'); }

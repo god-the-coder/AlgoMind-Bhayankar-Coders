@@ -1,6 +1,7 @@
 from pathlib import Path
 from datetime import timedelta
 import environ
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -10,6 +11,9 @@ environ.Env.read_env(BASE_DIR / '.env')
 SECRET_KEY = env('SECRET_KEY', default='django-insecure-change-me')
 DEBUG = env.bool('DEBUG', default=False)
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -128,10 +132,17 @@ SIMPLE_JWT = {
 # ── CORS ──────────────────────────────────────────────────────────────
 CORS_ALLOW_ALL_ORIGINS = True
 
-# ── Frontend URL (used for OAuth redirects) ──────────────────────────
+# ── Frontend URL (used by OAuth redirect) ────────────────────────────
 FRONTEND_URL = env('FRONTEND_URL', default='http://localhost:3000')
 
-# ── OAuth credentials ────────────────────────────────────────────────
+CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=[
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+])
+if FRONTEND_URL not in CORS_ALLOWED_ORIGINS:
+    CORS_ALLOWED_ORIGINS.append(FRONTEND_URL)
+
+# ── OAuth credentials ─────────────────────────────────────────────────
 GITHUB_CLIENT_ID = env('GITHUB_CLIENT_ID', default='')
 GITHUB_CLIENT_SECRET = env('GITHUB_CLIENT_SECRET', default='')
 GOOGLE_CLIENT_ID = env('GOOGLE_CLIENT_ID', default='')
